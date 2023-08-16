@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Jost", sans-serif;
+}
+.light {
+  --text: #021222;
+  --background: #d4e8fc;
+  --primary: #0d0dc5;
+  --secondary: #faddbd;
+  --accent: #dede0e;
+}
+.dark {
+  --text: #d4e8fc;
+  --background: #021222;
+  --primary: #0d0dc5;
+  --secondary: #1d1002;
+  --accent: #f8f88d;
+}
+.EmojiPickerReact{
+  position:absolute;
+  width: 90%;
+  height:200px;
+}
