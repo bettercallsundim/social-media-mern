@@ -9,11 +9,6 @@ import LeftSidebar from "@/components/LeftSidebar";
 import FriendSidebar from "@/components/FriendSidebar";
 import { useState } from "react";
 
-export const metadata = {
-  title: "FreeInstagram",
-  description: "A social media app",
-};
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
