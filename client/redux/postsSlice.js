@@ -2,18 +2,24 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 //async thunk data fetching
 export const getPosts = createAsyncThunk("posts/getPosts", async (uid) => {
-  const res = await fetch(`http://localhost:4000/post/getPosts/${uid}`, {
-    credentials: "include",
-  });
+  const res = await fetch(
+    `https://social-media-mern-backend.vercel.app/post/getPosts/${uid}`,
+    {
+      credentials: "include",
+    }
+  );
   const data = await res.json();
   return data.posts;
 });
 export const getFeedPosts = createAsyncThunk(
   "posts/getFeedPosts",
   async (uid) => {
-    const res = await fetch(`http://localhost:4000/post/getFeedPosts/${uid}`, {
-      credentials: "include",
-    });
+    const res = await fetch(
+      `https://social-media-mern-backend.vercel.app/post/getFeedPosts/${uid}`,
+      {
+        credentials: "include",
+      }
+    );
     const data = await res.json();
     return data.posts;
   }
