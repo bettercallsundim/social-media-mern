@@ -17,7 +17,7 @@ export default function FriendSidebar({ setRender }) {
   }, []);
 
   return (
-    <div className="bg-[color:var(--background)] w-[30%] p-10 h-screen space-y-4 hidden lg:block">
+    <div className="bg-[color:var(--background)] w-[30%] p-10 h-screen space-y-4 hidden shadowbox2 lg:block">
       <div>
         <p className="underline font-medium">People You May Know</p>
       </div>

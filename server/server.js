@@ -10,9 +10,11 @@ import compression from "compression";
 import multer from "multer";
 import path from "path";
 import userRoutes from "./routes/userRoutes.js";
-const app = express();
 
+const app = express();
 dotenv.config();
+
+//middlewares
 app.use(
   helmet({
     crossOriginResourcePolicy: false,
@@ -24,18 +26,22 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://social-media-mern-lemon.vercel.app",
+      "http://192.168.1.7:3000",
     ],
     credentials: true,
   })
 );
 app.use("/uploads", express.static("uploads"));
-
 app.disable("x-powered-by");
 app.use(express.json());
 app.use(cookieParser());
+
+//routes
 app.use("/auth", authRoutes);
 app.use("/post", postRoutes);
 app.use("/user", userRoutes);
+
+//db connection
 mongoose
   .connect(process.env.MONGO, {
     useNewUrlParser: true,

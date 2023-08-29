@@ -2,12 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 //async thunk data fetching
 export const getPosts = createAsyncThunk("posts/getPosts", async (uid) => {
-  const res = await fetch(
-    `https://social-media-mern-backend.vercel.app/post/getPosts/${uid}`,
-    {
-      credentials: "include",
-    }
-  );
+  const res = await fetch(`https://social-media-mern-backend.vercel.app/post/getPosts/${uid}`, {
+    credentials: "include",
+  });
   const data = await res.json();
   return data.posts;
 });
@@ -47,7 +44,7 @@ const postsSlice = createSlice({
       state.loading = false;
       action.payload.reverse();
       state.posts = action.payload;
-      console.log(state.posts);
+      // console.log(state.posts);
     });
 
     builder.addCase(getPosts.rejected, (state) => {

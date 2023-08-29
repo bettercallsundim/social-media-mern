@@ -7,21 +7,41 @@ body {
   font-family: "Jost", sans-serif;
 }
 .light {
-  --text: #021222;
-  --background: #d4e8fc;
-  --primary: #0d0dc5;
-  --secondary: #faddbd;
-  --accent: #dede0e;
+  --text: #000000;
+  --background: #ffffff;
+  --primary: #8fb3ff;
+  --secondary: #ebf1ff;
+  --accent: #ff6161;
 }
 .dark {
-  --text: #d4e8fc;
-  --background: #021222;
-  --primary: #0d0dc5;
-  --secondary: #1d1002;
-  --accent: #f8f88d;
+  --text: #ffffff;
+  --background: #000000;
+  --primary: #8fb3ff;
+  --secondary: #001952;
+  --accent: #fffafa;
 }
-.EmojiPickerReact{
-  position:absolute;
+.EmojiPickerReact {
+  position: absolute;
   width: 90%;
-  height:200px;
+  height: 200px;
+}
+.shadowbox {
+  position: relative;
+  box-shadow: 1px 5px 2px 2px rgb(173, 173, 173);
+  z-index: 99;
+}
+.shadowbox2 {
+  position: relative;
+  box-shadow: -1px 5px 2px 2px rgb(173, 173, 173);
+  z-index: 100;
+}
+
+.hidescroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hidescroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

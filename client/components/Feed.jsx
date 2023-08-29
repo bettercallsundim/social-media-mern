@@ -40,8 +40,8 @@ export default function Feed() {
   }, []);
 
   return (
-    <div className="lg:max-h-screen lg:overflow-y-scroll w-[100%] lg:w-[50%] p-10">
-      <div>
+    <div className="lg:max-h-screen lg:overflow-y-scroll w-[100%] lg:w-[50%] p-10 bg-[color:var(--background)]">
+      {/* <div>
         <form onSubmit={handlePost} encType="multipart/form-data">
           <TextField
             sx={{ width: "70%" }}
@@ -99,7 +99,7 @@ export default function Feed() {
         <br />
         <br />
       </div>
-      <hr />
+      <hr /> */}
       <h1 className="font-semibold text-xl text-gray-700">News Feed : </h1>
       <div>
         {loading && <CircularProgress color="secondary" />}

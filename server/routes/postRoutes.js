@@ -22,7 +22,7 @@ const upload = multer({ storage });
 router.post("/createPost", upload.single("photo"), async (req, res) => {
   const { post, uid, authorPhoto: authorPic, authorName } = req.body;
   const photoUrl = req.file ? `/uploads/${req.file.filename}` : null;
-  console.log(authorPic, "apic");
+  console.log("hiiapic");
   if (post && uid) {
     try {
       const user = await User.findOne({ uid });
@@ -42,6 +42,45 @@ router.post("/createPost", upload.single("photo"), async (req, res) => {
       }
     } catch (error) {
       res.json({ success: false, message: "post creation failed" });
+      console.log(error);
+    }
+  }
+});
+
+// update a post
+router.post("/updatePost", upload.single("photo"), async (req, res) => {
+  const { post: posto, uid, pid } = req.body;
+  let photoUrl;
+  if (req.file) {
+    photoUrl = `/uploads/${req.file.filename}`;
+  } else {
+    const postt = await Post.findOne({ _id: new mongoose.Types.ObjectId(pid) });
+    photoUrl = postt.photo;
+  }
+  if (posto || photoUrl) {
+    try {
+      // const user = await User.findOne({ uid });
+      const post = await Post.findOne({
+        _id: new mongoose.Types.ObjectId(pid),
+      });
+      if (post.author == uid) {
+        const newPost = await Post.findOneAndUpdate(
+          { _id: new mongoose.Types.ObjectId(pid) },
+          {
+            post: posto,
+            photo: photoUrl,
+          },
+          { new: true }
+        );
+        console.log(newPost, "new post");
+        res.json({
+          success: true,
+          message: "post updated successfully",
+          newPost,
+        });
+      }
+    } catch (error) {
+      res.json({ success: false, message: "post update failed" });
       console.log(error);
     }
   }
@@ -143,25 +182,28 @@ router.post("/:postid/comment/:uid", async (req, res) => {
 //get all comments of a particular post
 router.get("/:postid/comment", async (req, res) => {
   const { postid } = req.params;
-  try {
-    const post = await Post.findOne({
-      _id: new mongoose.Types.ObjectId(postid),
-    });
-    if (post) {
-      res.json({
-        success: true,
-        message: "comment fetching done",
-        comments: post.comments,
+  if (postid) {
+    console.log("post idddddddd", postid);
+    try {
+      const post = await Post.findOne({
+        _id: new mongoose.Types.ObjectId(postid),
       });
-    } else {
-      res.json({
-        success: false,
-        message: "comment fethcing failed, post not found",
-      });
+      if (post) {
+        res.json({
+          success: true,
+          message: "comment fetching done",
+          comments: post.comments,
+        });
+      } else {
+        res.json({
+          success: false,
+          message: "comment fethcing failed, post not found",
+        });
+      }
+    } catch (error) {
+      res.json({ success: false, message: "commenting fetching failed" });
+      console.log(error);
     }
-  } catch (error) {
-    res.json({ success: false, message: "commenting fetching failed" });
-    console.log(error);
   }
 });
 export default router;

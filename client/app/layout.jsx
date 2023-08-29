@@ -8,17 +8,20 @@ import Navbar from "@/components/Navbar";
 import LeftSidebar from "@/components/LeftSidebar";
 import FriendSidebar from "@/components/FriendSidebar";
 import { useState } from "react";
+import { StyledEngineProvider } from '@mui/material/styles';
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="light">
-        <Provider store={store}>
+      <StyledEngineProvider injectFirst>
+      <Provider store={store}>
           <PersistGate persistor={persistor}>
             <Navbar />
             {children}
           </PersistGate>
         </Provider>
+      </StyledEngineProvider>
       </body>
     </html>
   );

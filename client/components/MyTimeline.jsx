@@ -9,10 +9,26 @@ import { AddAPhoto } from "@mui/icons-material";
 export default function RightSidebar() {
   const fileRef = useRef(null);
   const { user } = useSelector((state) => state.app);
-  const { posts, loading } = useSelector((state) => state.posts);
-  console.log(posts);
+  // const { posts, loading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const [doc, setDoc] = useState({ post: "", photo: "" });
+  const [posts, setPosts] = useState([]);
+  const [clickTrack, setClickTrack] = useState(0);
+  const fetchPosts = async () => {
+    const res = await fetch(
+      `http://localhost:4000/post/getPosts/${user?.uid}`,
+      {
+        credentials: "include",
+      }
+    );
+    const data = await res.json();
+    if (data?.posts) {
+      let arr = data.posts;
+      arr.reverse();
+      setPosts(arr);
+      console.log("my timeline rerendered", posts);
+    }
+  };
   async function handlePost(e) {
     e.preventDefault();
     const formData = new FormData();
@@ -22,22 +38,28 @@ export default function RightSidebar() {
     formData.append("post", doc.post);
     formData.append("uid", user.uid);
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/post/createPost`, formData, {
-        withCredentials: true,
-      });
-      dispatch(getPosts(user.uid));
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND}/post/createPost`,
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
+      // dispatch(getPosts(user.uid));
+      await fetchPosts();
       setDoc({ post: "", photo: "" });
       console.log("File uploaded successfully");
     } catch (error) {
       console.error("Error uploading file", error);
     }
+    setClickTrack((prev) => prev + 1);
   }
   useEffect(() => {
-    dispatch(getPosts(user?.uid));
-  }, []);
-
+    // dispatch(getPosts(user?.uid));
+    fetchPosts();
+  }, [clickTrack]);
   return (
-    <div className="max-h-screen overflow-y-scroll w-[100%] lg:w-[50%] p-10">
+    <div className="max-h-screen overflow-y-scroll hidescroll w-[100%] lg:w-[50%] p-10 bg-[color:var(--background)]">
       <div>
         <form onSubmit={handlePost} encType="multipart/form-data">
           <TextField
@@ -99,9 +121,9 @@ export default function RightSidebar() {
       <hr />
       <h1 className="font-semibold text-xl">Your Posts : </h1>
       <div>
-        {loading && <CircularProgress color="secondary" />}
-        {posts?.map((post) => (
-          <PostCard post={post} />
+        {/* {loading && <CircularProgress color="secondary" />} */}
+        {posts?.map((post, ind) => (
+          <PostCard clickTrack={clickTrack} post={post} />
         ))}
       </div>
     </div>

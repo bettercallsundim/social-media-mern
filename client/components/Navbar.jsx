@@ -77,7 +77,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            free_instagram
+            fatebook
           </Typography>
 
           {user && (
