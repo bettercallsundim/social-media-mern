@@ -16,7 +16,7 @@ export default function RightSidebar() {
   const [clickTrack, setClickTrack] = useState(0);
   const fetchPosts = async () => {
     const res = await fetch(
-      `http://localhost:4000/post/getPosts/${user?.uid}`,
+      `${orocess.env.NEXT_PUBLIC_BACKEND}/post/getPosts/${user?.uid}`,
       {
         credentials: "include",
       }
