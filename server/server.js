@@ -1,14 +1,12 @@
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
+import compression from "compression";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import * as dotenv from "dotenv";
+import express from "express";
+import helmet from "helmet";
+import mongoose from "mongoose";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
-import helmet from "helmet";
-import compression from "compression";
-import multer from "multer";
-import path from "path";
 import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
