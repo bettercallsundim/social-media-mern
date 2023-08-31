@@ -9,8 +9,8 @@ import userReducer from "./userSlice";
 //   name: "donors",
 //   reducer: donorReducer,
 // });
-export const backend = "https://social-media-mern-backend.vercel.app";
-// export const backend = "http://localhost:4000";
+//  const backend = "https://social-media-mern-backend.vercel.app";
+//  const backend = "http://localhost:4000";
 const persistConfig = {
   key: "root",
   storage,
