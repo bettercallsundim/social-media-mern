@@ -1,15 +1,16 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import postsReducer from "./postsSlice";
-import appReducer from "./appSlice";
-import userReducer from "./userSlice";
-import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import appReducer from "./appSlice";
+import postsReducer from "./postsSlice";
+import userReducer from "./userSlice";
 
 // const store = configureStore({
 //   name: "donors",
 //   reducer: donorReducer,
 // });
-
+export const backend = "https://social-media-mern-backend.vercel.app";
+// export const backend = "http://localhost:4000";
 const persistConfig = {
   key: "root",
   storage,

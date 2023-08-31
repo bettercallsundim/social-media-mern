@@ -1,24 +1,22 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import Card from "@mui/material/Card";
-import EditIcon from "@mui/icons-material/Edit";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import axios from "axios";
 import { AddAPhoto, ChatBubble } from "@mui/icons-material";
+import EditIcon from "@mui/icons-material/Edit";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Modal, TextField } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import axios from "axios";
+import moment from "moment";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { Modal, TextField } from "@mui/material";
 const style = {
   position: "absolute",
   top: "50%",
@@ -81,6 +79,7 @@ export default function PostCard({ post, clickTrack }) {
       console.error(error);
     }
   }
+
   async function handleUpdate(e) {
     e.preventDefault();
     const formData = new FormData();
@@ -134,7 +133,7 @@ export default function PostCard({ post, clickTrack }) {
   return (
     <div>
       <div>
-        <div className="modal bg-[color:var(--secondary)] rounded-md">
+        <div className="modal bg-[color:var(--background)] rounded-md">
           <Modal open={open} onClose={handleClose} className="rounded-md">
             <Box sx={style}>
               <div className="overflow-y-scroll h-[300px] relative">
@@ -170,7 +169,6 @@ export default function PostCard({ post, clickTrack }) {
                 <br />
                 <Button
                   size="small"
-
                   className="bg-rose-500"
                   variant="contained"
                   type="submit"
@@ -182,7 +180,10 @@ export default function PostCard({ post, clickTrack }) {
           </Modal>
         </div>
       </div>
-      <Card sx={{ maxWidth: 345, my: 8 }}>
+      <Card
+        className="bg-[color:var(--primary)] p-2"
+        sx={{ maxWidth: 345, my: 8 }}
+      >
         <CardHeader
           avatar={<Avatar src={post?.authorPic} />}
           action={
@@ -196,7 +197,7 @@ export default function PostCard({ post, clickTrack }) {
             ) : null
           }
           title={data?.authorName}
-          subheader={data?.updatedAt}
+          subheader={moment(data?.updatedAt).fromNow()}
         />
         {data?.photo && !editting && (
           <CardMedia

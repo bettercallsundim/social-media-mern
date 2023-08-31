@@ -1,22 +1,23 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { backend } from "./store";
 
 //async thunk data fetching
 export const getPosts = createAsyncThunk("posts/getPosts", async (uid) => {
-  const res = await fetch(`https://social-media-mern-backend.vercel.app/post/getPosts/${uid}`, {
-    credentials: "include",
-  });
+  const res = await fetch(
+    `https://social-media-mern-backend.vercel.app/post/getPosts/${uid}`,
+    {
+      credentials: "include",
+    }
+  );
   const data = await res.json();
   return data.posts;
 });
 export const getFeedPosts = createAsyncThunk(
   "posts/getFeedPosts",
   async (uid) => {
-    const res = await fetch(
-      `https://social-media-mern-backend.vercel.app/post/getFeedPosts/${uid}`,
-      {
-        credentials: "include",
-      }
-    );
+    const res = await fetch(`${backend}/post/getFeedPosts/${uid}`, {
+      credentials: "include",
+    });
     const data = await res.json();
     return data.posts;
   }
