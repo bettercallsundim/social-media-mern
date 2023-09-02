@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const backend = "https://social-media-mern-backend.vercel.app";
-//  const backend = "http://localhost:4000";
+// const backend = "http://localhost:4000";
 //async thunk data fetching
 export const getUsers = createAsyncThunk("user/getUsers", async () => {
   const res = await fetch(`${backend}/user/getUsers`, {

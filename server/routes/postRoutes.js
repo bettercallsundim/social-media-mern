@@ -1,10 +1,9 @@
 import express from "express";
+import mongoose from "mongoose";
 import multer from "multer";
 import path from "path";
-import User from "../models/User.model.js";
 import Post from "../models/Post.model.js";
-import jwtauth from "../middleware/auth.js";
-import mongoose from "mongoose";
+import User from "../models/User.model.js";
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -168,6 +167,7 @@ router.post("/:postid/comment/:uid", async (req, res) => {
       post.comments.push({
         user: user,
         comment: req.body.comment,
+        date: Date.now(),
       });
       await post.save();
       res.json({ success: true, message: "comment done", post });

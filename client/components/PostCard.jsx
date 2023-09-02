@@ -25,7 +25,6 @@ const style = {
   width: 400,
   boxShadow: 24,
   p: 4,
-  backgroundColor: "var(--secondary)",
   borderRadius: "3%",
 };
 export default function PostCard({ post, clickTrack }) {
@@ -33,7 +32,7 @@ export default function PostCard({ post, clickTrack }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const { user } = useSelector((state) => state.app);
-  const [commented, setCommented] = useState(0);
+  const [isLoading, setisLoading] = useState(false);
   const [data, setData] = useState({});
   const [isLiked, setIsLiked] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
@@ -60,6 +59,7 @@ export default function PostCard({ post, clickTrack }) {
   async function handleComment(e) {
     e.preventDefault();
     try {
+      setisLoading(true);
       await axios
         .post(
           `${process.env.NEXT_PUBLIC_BACKEND}/post/${post?._id}/comment/${user?.uid}`,
@@ -71,11 +71,13 @@ export default function PostCard({ post, clickTrack }) {
           }
         )
         .then((res) => {
+          setisLoading(false);
           setData(res?.data?.post);
           setComment("");
           ref.current.scrollIntoView();
         });
     } catch (error) {
+      setisLoading(false);
       console.error(error);
     }
   }
@@ -133,18 +135,24 @@ export default function PostCard({ post, clickTrack }) {
   return (
     <div>
       <div>
-        <div className="modal bg-[color:var(--background)] rounded-md">
-          <Modal open={open} onClose={handleClose} className="rounded-md">
-            <Box sx={style}>
+        <div className="modal rounded-md bg-[color:var(--background)]">
+          <Modal open={open} onClose={handleClose} className="rounded-md ">
+            <Box sx={style} className="bg-[color:var(--background)]">
               <div className="overflow-y-scroll h-[300px] relative">
                 {data?.comments?.map((comm) => {
                   return (
-                    <div className="flex items-center gap-4 mb-4">
+                    <div className="flex items-center gap-4 mb-6">
                       <div className="photo">
                         <Avatar src={comm?.user?.photo} />
                       </div>
-                      <div className="comm">
-                        <p className="font-semibold">{comm?.user?.name}</p>
+                      <div className="comm w-[80%]">
+                        <p className="font-semibold flex items-center justify-between">
+                          <span>{comm?.user?.name} </span>
+                          <span className="text-[color:var(--primary)] text-sm opacity-80">
+                            {moment(comm?.date).fromNow()}
+                          </span>
+                        </p>
+
                         <p>{comm?.comment}</p>
                       </div>
                     </div>
@@ -154,20 +162,20 @@ export default function PostCard({ post, clickTrack }) {
               </div>
 
               <form onSubmit={handleComment} encType="multipart/form-data">
-                <TextField
-                  sx={{ width: "70%" }}
-                  id="outlined-multiline-flexible"
-                  label="Write a comment"
-                  multiline
-                  maxRows={4}
+                <textarea
+                  className="text-[color:var(--text)] bg-[color:var(--background)] border-2 border-gray-400 p-3 rounded-md w-[90%]"
+                  rows="2"
+                  placeholder="Write a comment ..."
                   onChange={(e) => setComment(e.target.value)}
                   value={comment}
                   name="comment"
                   type="text"
-                />
+                ></textarea>
+
                 <br />
                 <br />
                 <Button
+                  disabled={isLoading}
                   size="small"
                   className="bg-rose-500"
                   variant="contained"
