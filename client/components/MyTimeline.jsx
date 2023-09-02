@@ -62,8 +62,7 @@ export default function RightSidebar() {
       <div>
         <form onSubmit={handlePost} encType="multipart/form-data">
           <textarea
-            className="text-[color:var(--text)] bg-[color:var(--background)] border-2 border-gray-400 p-3"
-            cols="50"
+            className="text-[color:var(--text)] bg-[color:var(--background)] border-2 border-gray-400 p-3 w-full"
             rows="3"
             placeholder="Write a post ..."
             onChange={(e) =>
