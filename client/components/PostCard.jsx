@@ -137,7 +137,10 @@ export default function PostCard({ post, clickTrack }) {
       <div>
         <div className="modal rounded-md bg-[color:var(--background)]">
           <Modal open={open} onClose={handleClose} className="rounded-md ">
-            <Box sx={style} className="bg-[color:var(--background)] w-full md:w-[400px]">
+            <Box
+              sx={style}
+              className="bg-[color:var(--background)] w-full sm:w-[400px]"
+            >
               <div className="overflow-y-scroll h-[300px] relative">
                 <p className="text-center">
                   {data?.comments?.length == 0 && "No comments"}
@@ -186,6 +189,7 @@ export default function PostCard({ post, clickTrack }) {
                 >
                   Comment
                 </Button>
+                <p>{isLoading && "loading ..."}</p>
               </form>
             </Box>
           </Modal>
