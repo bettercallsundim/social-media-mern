@@ -4,7 +4,7 @@ const backend = "https://social-media-mern-backend.vercel.app";
 //async thunk data fetching
 export const getPosts = createAsyncThunk("posts/getPosts", async (uid) => {
   const res = await fetch(
-    `https://social-media-mern-backend.vercel.app/post/getPosts/${uid}`,
+    `${backend}/post/getPosts/${uid}`,
     {
       credentials: "include",
     }
