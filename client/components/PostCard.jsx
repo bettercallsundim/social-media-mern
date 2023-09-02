@@ -22,7 +22,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+
   boxShadow: 24,
   p: 4,
   borderRadius: "3%",
@@ -137,8 +137,11 @@ export default function PostCard({ post, clickTrack }) {
       <div>
         <div className="modal rounded-md bg-[color:var(--background)]">
           <Modal open={open} onClose={handleClose} className="rounded-md ">
-            <Box sx={style} className="bg-[color:var(--background)]">
+            <Box sx={style} className="bg-[color:var(--background)] w-full md:w-[400px]">
               <div className="overflow-y-scroll h-[300px] relative">
+                <p className="text-center">
+                  {data?.comments?.length == 0 && "No comments"}
+                </p>
                 {data?.comments?.map((comm) => {
                   return (
                     <div className="flex items-center gap-4 mb-6">
