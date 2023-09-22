@@ -1,10 +1,9 @@
-import { getFeedPosts, getPosts } from "@/redux/postsSlice";
-import { Button, CircularProgress, IconButton, TextField } from "@mui/material";
+import { getFeedPosts } from "@/redux/postsSlice";
+import { CircularProgress } from "@mui/material";
 import axios from "axios";
-import React, { Component, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PostCard from "./PostCard";
-import { AddAPhoto } from "@mui/icons-material";
 
 export default function Feed() {
   const fileRef = useRef(null);
@@ -100,7 +99,7 @@ export default function Feed() {
         <br />
       </div>
       <hr /> */}
-      <h1 className="font-semibold text-xl text-gray-700">News Feed : </h1>
+      <h1 className="font-semibold text-[color:var(--text)] ">News Feed : </h1>
       <div>
         {loading && <CircularProgress color="secondary" />}
         {posts?.map((post) => (

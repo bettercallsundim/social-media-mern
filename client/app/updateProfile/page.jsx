@@ -60,9 +60,10 @@ export default function page() {
         </label>
         <br />
         <br />
-        <label htmlFor="photo">
+        <label className="text-black" htmlFor="photo">
           Change Profile Picture :
           <IconButton
+          className="text-black bg-black"
             onClick={() => {
               fileRef.current.click();
             }}

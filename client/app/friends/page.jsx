@@ -1,12 +1,12 @@
 "use client";
+import { FriendCard } from "@/components/FriendCard";
 import { getUsers } from "@/redux/userSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FriendCard } from "./FriendCard";
 
 export default function FriendSidebar({ setRender }) {
   const { users, loading, error } = useSelector((state) => state.user);
-  const { user: theuser } = useSelector((state) => state.app);
+  const { user:theuser } = useSelector((state) => state.app);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function FriendSidebar({ setRender }) {
   }, []);
 
   return (
-    <div className="bg-[color:var(--background)] w-[30%] p-10 h-screen space-y-4 hidden shadowbox2 lg:block">
+    <div className="bg-[color:var(--background)] w-full p-10 h-screen space-y-4 hidden shadowbox2 lg:block">
       <div>
         <p className="underline font-medium">People You May Know</p>
       </div>

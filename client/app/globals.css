@@ -15,9 +15,9 @@ body {
 }
 .dark {
   --text: #ffffff;
-  --background: #292929;
+  --background: #191919;
   --primary: #8fb3ff;
-  --secondary: #001952;
+  --secondary: #3869da;
   --accent: #fffafa;
 }
 .EmojiPickerReact {

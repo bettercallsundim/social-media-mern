@@ -11,6 +11,7 @@ export default function RightSidebar() {
   // const { posts, loading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const [doc, setDoc] = useState({ post: "", photo: "" });
+  const [photo, setPhoto] = useState("");
   const [posts, setPosts] = useState([]);
   const [clickTrack, setClickTrack] = useState(0);
   const fetchPosts = async () => {
@@ -28,31 +29,89 @@ export default function RightSidebar() {
       console.log("my timeline rerendered", posts);
     }
   };
-  async function handlePost(e) {
+  async function uploadPost(e) {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("photo", doc.photo);
-    formData.append("authorPhoto", user.photo);
-    formData.append("authorName", user.name);
-    formData.append("post", doc.post);
-    formData.append("uid", user.uid);
-    try {
+    if (fileRef.current.files.length > 0) {
+      console.log("ifff");
+      const formData = new FormData();
+      formData.append("file", doc.photo);
+      formData.append("upload_preset", "freeinstagram");
+      await axios
+        .post(
+          "https://api.cloudinary.com/v1_1/dogwysjys/image/upload",
+          formData,
+          { withCredentials: false }
+        )
+        .then(async (res) => {
+          await axios.post(
+            `${process.env.NEXT_PUBLIC_BACKEND}/post/createPost`,
+            {
+              photo: res?.data?.secure_url,
+              authorPhoto: user.photo,
+              authorName: user.name,
+              post: doc.post,
+              uid: user.uid,
+            },
+            {
+              withCredentials: true,
+            }
+          );
+          await fetchPosts();
+          setDoc({ post: "", photo: "" });
+        })
+        .catch((error) => {
+          console.error("Error uploading file", error);
+        });
+      fileRef.current.value = "";
+    } else {
+      console.log("elsee");
+
       await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND}/post/createPost`,
-        formData,
+        {
+          photo: "",
+          authorPhoto: user.photo,
+          authorName: user.name,
+          post: doc.post,
+          uid: user.uid,
+        },
         {
           withCredentials: true,
         }
       );
-      // dispatch(getPosts(user.uid));
       await fetchPosts();
       setDoc({ post: "", photo: "" });
-      console.log("File uploaded successfully");
-    } catch (error) {
-      console.error("Error uploading file", error);
     }
     setClickTrack((prev) => prev + 1);
   }
+
+  //multer to server
+  // async function handlePost(e) {
+  //   e.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append("photo", doc.photo);
+  //   formData.append("authorPhoto", user.photo);
+  //   formData.append("authorName", user.name);
+  //   formData.append("post", doc.post);
+  //   formData.append("uid", user.uid);
+  //   try {
+  //     await axios.post(
+  //       `${process.env.NEXT_PUBLIC_BACKEND}/post/createPost`,
+  //       formData,
+  //       {
+  //         withCredentials: true,
+  //       }
+  //     );
+  //     // dispatch(getPosts(user.uid));
+  //     await fetchPosts();
+  //     setDoc({ post: "", photo: "" });
+  //     console.log("File uploaded successfully");
+  //   } catch (error) {
+  //     console.error("Error uploading file", error);
+  //   }
+  //   setClickTrack((prev) => prev + 1);
+  // }
+
   useEffect(() => {
     // dispatch(getPosts(user?.uid));
     fetchPosts();
@@ -60,7 +119,7 @@ export default function RightSidebar() {
   return (
     <div className="max-h-screen overflow-y-scroll hidescroll w-[100%] lg:w-[50%] p-10  bg-[color:var(--background)]">
       <div>
-        <form onSubmit={handlePost} encType="multipart/form-data">
+        <form onSubmit={uploadPost} encType="multipart/form-data">
           <textarea
             className="text-[color:var(--text)] bg-[color:var(--background)] border-2 border-gray-400 p-3 w-full"
             rows="3"

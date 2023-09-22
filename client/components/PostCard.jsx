@@ -202,7 +202,7 @@ export default function PostCard({ post, clickTrack }) {
         <CardHeader
           avatar={<Avatar src={post?.authorPic} />}
           action={
-            user.uid == post?.author ? (
+            user?.uid == post?.author ? (
               <IconButton
                 onClick={() => setEditting(true)}
                 aria-label="Edit post"
@@ -217,7 +217,7 @@ export default function PostCard({ post, clickTrack }) {
         {data?.photo && !editting && (
           <CardMedia
             component="img"
-            image={`${process.env.NEXT_PUBLIC_BACKEND}${data?.photo}`}
+            image={`${data?.photo}`}
             alt="Paella dish"
             sx={{ height: 300 }}
           />

@@ -17,18 +17,45 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-//create a post
-router.post("/createPost", upload.single("photo"), async (req, res) => {
-  const { post, uid, authorPhoto: authorPic, authorName } = req.body;
-  const photoUrl = req.file ? `/uploads/${req.file.filename}` : null;
-  console.log("hiiapic");
+//create a post with multer
+// router.post("/createPost", upload.single("photo"), async (req, res) => {
+//   const { post, uid, authorPhoto: authorPic, authorName } = req.body;
+//   const photoUrl = req.file ? `/uploads/${req.file.filename}` : null;
+//   console.log("hiiapic");
+//   if (post && uid) {
+//     try {
+//       const user = await User.findOne({ uid });
+//       if (user) {
+//         const newPost = new Post({
+//           post,
+//           photo: photoUrl,
+//           author: uid,
+//           authorPic,
+//           authorName,
+//         });
+//         await newPost.save();
+//         res.json({
+//           success: true,
+//           message: "post created successfully",
+//         });
+//       }
+//     } catch (error) {
+//       res.json({ success: false, message: "post creation failed" });
+//       console.log(error);
+//     }
+//   }
+// });
+//create a post with cloudinary
+router.post("/createPost", async (req, res) => {
+  const { post, uid, authorPhoto: authorPic, authorName, photo } = req.body;
+  console.log(req.body);
   if (post && uid) {
     try {
       const user = await User.findOne({ uid });
       if (user) {
         const newPost = new Post({
           post,
-          photo: photoUrl,
+          photo,
           author: uid,
           authorPic,
           authorName,
