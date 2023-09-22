@@ -14,13 +14,13 @@ export default function FriendSidebar({ setRender }) {
   }, []);
 
   return (
-    <div className="bg-[color:var(--background)] w-[30%] p-10 h-screen space-y-4 hidden shadowbox2 lg:block">
+    <div className="bg-[color:var(--background)] w-[30%] p-10 h-screen space-y-4 hidden  lg:block">
       <div>
         <p className="underline font-medium">People You May Know</p>
       </div>
       {users?.map((user) => {
-        if (theuser.uid != user.uid) {
-          return <FriendCard user={user} key={user.uid} />;
+        if (theuser?.uid != user?.uid) {
+          return <FriendCard user={user} key={user?.uid} />;
         } else {
           return undefined;
         }
