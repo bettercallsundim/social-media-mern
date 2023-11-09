@@ -1,22 +1,22 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import { persistor } from "@/redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
 import { removeUser } from "@/redux/appSlice";
+import { persistor } from "@/redux/store";
+import AdbIcon from "@mui/icons-material/Adb";
+import MenuIcon from "@mui/icons-material/Menu";
+import AppBar from "@mui/material/AppBar";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const pages = [
   {
@@ -77,7 +77,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            fatebook
+            socialone
           </Typography>
 
           {user && (
@@ -137,7 +137,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            socialone
           </Typography>
           {user && (
             <Box
