@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Jost", sans-serif;
+}
+.light {
+  --text: #000000;
+  --background: #ffffff;
+  --primary: #8fb3ff;
+  --secondary: #ebf1ff;
+  --accent: #ff6161;
+}
+.dark {
+  --text: #ffffff;
+  --background: #252525;
+  --primary: #8fb3ff;
+  --secondary: #3869da;
+  --accent: #fffafa;
+}
+.EmojiPickerReact {
+  position: absolute;
+  width: 90%;
+  height: 200px;
+}
+.shadowbox {
+  position: relative;
+  box-shadow: 1px 5px 2px 2px rgb(173, 173, 173);
+  z-index: 99;
+}
+.shadowbox2 {
+  position: relative;
+  box-shadow: -1px 5px 2px 2px rgb(173, 173, 173);
+  z-index: 100;
+}
+
+.hidescroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hidescroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
