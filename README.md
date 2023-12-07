@@ -8,4 +8,4 @@ MERN stack social media app, created using Next.js.
 - photos are hosted in cloudinary
 - Users can comment on any post
 - Users can change Display Picture and Name
-- Authetication implemented with Firebase
+- Authentication implemented with Firebase
